@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>PCA - Educational Content</title>
+    <meta property="og:title" content="PCA - Educational Content" />
+    <meta property="og:description" content="Learn about Principal Component Analysis (PCA), a powerful technique for dimensionality reduction and data visualization." />
+    <link rel="icon" href="img/logo-web.jpeg" type="image/jpeg" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script type="text/javascript" async 
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <h4>
+          <span class="curl">{</span><span class="text"></span><span class="curl">}</span>
+        </h4>
+      </div>
+      <div class="burger-icon">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </div>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="container">
+      <section class="content"><br>
+        <h1 style="color: var(--main-color); text-align: center;">Principal Component Analysis (PCA)</h1><br>
+        <p style="color: var(--grey-color); font-size: 22px;">
+          Principal Component Analysis (PCA) is an unsupervised statistical dimensionality reduction technique used to transform
+           a dataset into a lower-dimensional space while preserving as much variance (information) as possible.
+        </p>
+        <h2 style="color: var(--main-color);"> Why Do We Need PCA? (The Curse of Dimensionality)</h2>
+        <ul style="color: var(--grey-color); font-size: 22px;">
+        <li> As the number of features (dimensions) in a dataset increases, it introduces several problems:</li> <br>
+        <li>✅ Computational Complexity: More dimensions mean more computations and storage requirements.</li>
+        <li>✅ Data Sparsity: High-dimensional data points become spread out, making patterns difficult to detect.</li>
+        <li>✅ Overfitting: Machine learning models may learn noise instead of actual patterns.</li> 
+        <li>✅ Visualization Challenges: Humans can only interpret data in 2D or 3D, making it difficult to understand high-dimensional datasets.</li>
+
+          <br>  PCA helps mitigate these issues by reducing the number of features while keeping the most important information.</ul>
+        <h2 style="color: var(--main-color);">How Does PCA Work?</h2>
+        <p style="color: var(--grey-color); font-size: 22px;">
+          PCA follows a mathematical approach based on linear algebra to reduce dimensions. Here’s a step-by-step breakdown:
+        </p>
+        <ul style="color: var(--grey-color); font-size: 22px;">
+          <li><strong style="color: var(--grey-color); font-size: 26px;">Step 1: Standardize the Data</strong></li>
+          <p>Before applying PCA, we need to standardize (normalize) the data because PCA is affected by feature scale. We subtract the mean and divide by the standard deviation:
+          <br> <h3 style="text-align: center;">
+            \( X_{\text{Normalized}} = \frac{X - \mu}{\sigma} \)
+          </h3>
+          
+        
+                    where:
+                  <ul>
+                    <li>X is the original feature matrix.</li>
+                    <li>μ is the mean of each feature.</li>
+                    <li>σ is the standard deviation of each feature.</li>
+                  </ul>
+                  This ensures that all features contribute equally, regardless of their original scales.
+          </p><br>
+          <img src="img/pcascaling.png" style="display: block; margin: auto;">
+            
+          <svg width="100%" height="10">
+            <line x1="5" y1="5" x2="1350" y2="5" stroke="var(--main-color)" stroke-width="4"/>
+          </svg><br>
+          <li><strong style="color: var(--grey-color); font-size: 26px;">Step 2: Compute the Covariance Matrix</strong></li>
+          <p>The covariance matrix captures relationships between features.
+             If two features are correlated, PCA will try to merge them into a single new feature.
+
+            <br><br>The covariance matrix (𝐶) is computed as:
+            <h3 style="text-align: center;">
+              \( C = \frac{1}{n-1} X^T X \)
+            </h3>
+            where:
+                  <ul>
+                    <li>X is the standardized data matrix.</li>
+                    <li>n is the number of observations.</li>
+                  </ul><br>
+                  The covariance matrix is symmetric, with diagonal elements representing the variance of each feature.<br></p>
+
+                  <img src="img/covmat.png" style="display: block; margin: auto;">
+                  <svg width="100%" height="10">
+                    <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+                  </svg><br>
+
+          <li><strong style="color: var(--grey-color); font-size: 26px;">Step 3: Compute Eigenvalues and Eigenvectors</strong></li>
+          <p>Eigenvalues and eigenvectors help identify the principal components,
+             which are new axes along which data variation is maximized.
+
+             <ul><li><strong>Eigenvalues</strong> represent the directions of the new feature space.</li>
+                  <li><strong>Eigenvectors</strong> represent the amount of variance retained in each direction.</li></ul><br>
+                  
+
+           <br><br>Solving this equation :
+           <h3 style="text-align: center;">
+            <p>
+              \( C v = \lambda v \)
+            </p>
+           </h3>
+           where:
+                 <ul>
+                   <li>v: Eigenvectors (principal components).</li>
+                   <li>λ: Eigenvalues (amount of variance explained by each component).</li>
+                 </ul><br>
+                </p>
+
+          <svg width="100%" height="10">
+            <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+          </svg><br><br>
+
+
+
+          <li> <strong style="color: var(--grey-color); font-size: 26px;">Step 4: Sort and Select Top Principal Components</strong> </li><br>
+          <p>
+
+            <ol><li> Sort the eigenvalues in<strong>descending order</strong> .</li>
+                 <li> Select the <strong>top 𝑘 components</strong> that capture most of the variance.</li></ol><br>
+
+                 The percentage of variance captured by each component is:
+                 <h3 style="text-align: center;">
+                  \[
+                  \text{Explained Variance Ratio} = \frac{\lambda_i}{\sum \lambda}
+                  \]
+                </h3>
+                where λ<sub>i</sub> is the eigenvalue of the i-th principal component.<br><br>
+
+                If we plot the explained variance, we often see an "elbow" shape, where most variance is captured by a few components.
+                We typically select the number of components based on this elbow.
+
+                <svg width="100%" height="10">
+                  <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+                </svg><br><br>
+
+                <li> <strong style="color: var(--grey-color); font-size: 26px;">Step 5: Transform the Data</strong> </li><br>
+                <p>
+                  We multiply the original standardized data matrix by the selected principal components:<br>
+
+                  
+
+                  <h3 style="text-align: center;">
+                      \[
+                      X_{\text{New}} = X_{\text{Normalized}} V_k
+                      \]
+                        </h3>
+
+                  
+                  <ul><li> V<sub>k</sub> is the matrix of <strong>top 𝑘 eigenvectors</strong> .</li>
+                       <li> X<sub>new</sub> is the transformed lower-dimensional dataset.</li></ul><br>
+      
+                       Now, instead of having 𝑑 original features, <strong>We have 𝑘 principal components.</strong> 
+                       </ul>
+                       <img src="img/pcatrans.jpeg" style="display: block; margin: auto;">
+                       <svg width="100%" height="10">
+                        <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+                      </svg><br><br>
+
+
+                      <h2 style="color: var(--main-color);">PCA Applications</h2>
+
+                      <h4 style="color: var(--grey-color); font-size: 22px;">PCA is widely used in various fields:</h4>
+                      
+                      <div style="color: var(--grey-color); font-size: 22px;">
+                          <h4>✅ Data Visualization</h4>
+                          <ul>
+                              <li>✨ Reducing high-dimensional data (e.g., 100 features) into 2D or 3D for visualization.</li>
+                              <li>✨ Example: Visualizing the MNIST handwritten digits dataset in 2D.</li>
+                          </ul>
+                      
+                          <h4>✅ Machine Learning & Feature Engineering</h4>
+                          <ul>
+                              <li>✨ Helps improve model performance by removing redundant or less important features.</li>
+                              <li>✨ Reduces overfitting by lowering the number of input features.</li>
+                          </ul>
+                      
+                          <h4>✅ Image Compression</h4>
+                          <ul>
+                              <li>✨ Images with millions of pixels can be reduced to fewer principal components without significant loss in quality.</li>
+                              <li>✨ Example: Face recognition systems like Eigenfaces use PCA to reduce storage and computation.</li>
+                          </ul>
+                      
+                          <h4>✅ Noise Reduction</h4>
+                          <ul>
+                              <li>✨ PCA removes noise by discarding components with low variance, effectively filtering out unimportant information.</li>
+                          </ul><h4>✅ Outlier Detection</h4>
+                          <ul>
+                              <li>✨ Identifies unusual data points by showing which ones deviate significantly in the reduced space.</li>
+                          </ul>
+                      </div>
+                      
+              
+
+              <svg width="100%" height="10">
+                <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+              </svg><br><br>
+
+
+
+              <h2 style="color: var(--main-color);"><strong>Key Limitations of PCA</strong></h2>
+
+<div style="color: var(--grey-color); font-size: 22px;">
+    <ul>
+        <li><strong>🚨 Linear Transformation Only:</strong> PCA assumes linear relationships between features.
+            It won’t work well if the data is inherently nonlinear.</li>
+        <li><strong>🚨 Loss of Interpretability:</strong> The transformed features (principal components) do not have direct meanings.</li>
+        <li><strong>🚨 Sensitive to Scaling:</strong> PCA assumes data is centered, so it requires proper standardization.</li>
+        <li><strong>🚨 Doesn't Work Well for Categorical Data:</strong> PCA is best suited for continuous numerical data.</li>
+    </ul>
+    <p>To handle nonlinear relationships, techniques like <strong>Kernel PCA</strong> and <strong>t-SNE</strong> can be used.</p>
+</div>
+
+
+            <svg width="100%" height="10">
+              <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+            </svg><br><br>
+
+            <h2 style="color: var(--main-color);"><strong>When Should You Use PCA?</strong></h2>
+
+<div style="color: var(--grey-color); font-size: 22px;">
+    <ul>
+        <li>✅ When you have high-dimensional data and need to reduce computational cost.</li>
+        <li>✅ When features are correlated, and you want to remove redundancy.</li>
+        <li>✅ When you need to visualize data in 2D or 3D.</li>
+        <li>✅ When performing data preprocessing before machine learning models.</li>
+    </ul>
+</div>
+
+<svg width="100%" height="10">
+  <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+</svg><br><br>
+
+<h2 style="color: var(--main-color);"><strong>PCA vs. Other Dimensionality Reduction Techniques</strong></h2>
+
+<table style="width: 100%; border-collapse: collapse; color: var(--grey-color); font-size: 20px;">
+    <tr style="background-color: rgba(255, 255, 255, 0.1); color: var(--main-color);">
+        <th style="border: 1px solid var(--grey-color); padding: 10px;">Technique</th>
+        <th style="border: 1px solid var(--grey-color); padding: 10px;">Assumption</th>
+        <th style="border: 1px solid var(--grey-color); padding: 10px;">Strengths</th>
+        <th style="border: 1px solid var(--grey-color); padding: 10px;">Limitations</th>
+    </tr>
+    <tr>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;"><strong>PCA</strong></td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Linear relationships</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Fast, widely used</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Fails for nonlinear data</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;"><strong>Kernel PCA</strong></td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Nonlinear relationships</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Captures complex patterns</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Computationally expensive</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;"><strong>t-SNE</strong></td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Manifold learning</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Good for visualization</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Not suitable for feature extraction</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;"><strong>Autoencoders</strong></td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Deep learning-based</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Learns complex structures</td>
+        <td style="border: 1px solid var(--grey-color); padding: 10px;">Needs large d</tr>
+        </table><br>
+
+          <svg width="100%" height="10">
+            <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+          </svg><br><br>
+
+          <h2 style="color: var(--main-color);"><strong>PCA and Singular Value Decomposition (SVD)</strong></h2>
+
+        <p style="color: var(--grey-color); font-size: 20px;">
+            PCA can also be computed using <strong>Singular Value Decomposition (SVD)</strong>, which is more efficient than eigenvalue decomposition.
+        </p>
+
+        <h3 style="text-align: center; color: var(--grey-color); font-size: 22px;">
+            \( X = U \Sigma V^T \)
+        </h3>
+
+        <ul style="color: var(--grey-color); font-size: 20px;">
+            <li><strong>Left singular vectors (U)</strong> → Principal components</li>
+            <li><strong>Singular values (Σ)</strong> → Corresponds to variance</li>
+            <li><strong>Right singular vectors (V)</strong> → Feature transformation</li>
+        </ul>
+
+        <p style="color: var(--grey-color); font-size: 20px;">
+            In practice, <strong>SVD</strong> is preferred for large datasets.
+        </p>
+              
+            
+            <svg width="100%" height="10">
+              <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+            </svg><br><br>
+
+            <h2 style="color: var(--main-color);"><strong>PCA in Python (Using Scikit-Learn)</strong></h2>
+
+<pre><code class="language-python">
+                    import numpy as np
+                    import matplotlib.pyplot as plt
+                    from sklearn.decomposition import PCA
+                    from sklearn.preprocessing import StandardScaler
+                    from sklearn.datasets import load_iris
+
+                    # Load dataset
+                    data = load_iris()
+                    X = data.data
+
+                    # Standardize the data
+                    scaler = StandardScaler()
+                    X_scaled = scaler.fit_transform(X)
+
+                    # Apply PCA
+                    pca = PCA(n_components=2)
+                    X_pca = pca.fit_transform(X_scaled)
+
+                    # Plot PCA results
+                    plt.scatter(X_pca[:, 0], X_pca[:, 1], c=data.target, cmap='viridis', edgecolor='k')
+                    plt.xlabel('Principal Component 1')
+                    plt.ylabel('Principal Component 2')
+                    plt.title('PCA Visualization of Iris Dataset')
+                    plt.colorbar(label='Class')
+                    plt.show()
+</code></pre>
+
+<img src="img/pcacode.png" style="display: block; margin: auto;">
+
+<h3 style="color: var(--grey-color); font-size: 22px;">1. Importing Necessary Libraries</h3>
+<pre style="color: var(--grey-color); font-size: 22px;">
+                import numpy as np
+                import matplotlib.pyplot as plt
+                from sklearn.decomposition import PCA
+                from sklearn.preprocessing import StandardScaler
+                from sklearn.datasets import load_iris
+</pre>
+<p style="color: var(--grey-color); font-size: 22px;">- <b>numpy</b>: Used for numerical operations.</p>
+<p style="color: var(--grey-color); font-size: 22px;">- <b>matplotlib.pyplot</b>: Used for plotting.</p>
+<p style="color: var(--grey-color); font-size: 22px;">- <b>sklearn.decomposition.PCA</b>: Implements PCA.</p>
+<p style="color: var(--grey-color); font-size: 22px;">- <b>sklearn.preprocessing.StandardScaler</b>: Standardizes the dataset.</p>
+<p style="color: var(--grey-color); font-size: 22px;">- <b>sklearn.datasets.load_iris</b>: Loads the Iris dataset.</p>
+
+<h3 style="color: var(--grey-color); font-size: 22px;">2. Loading the Iris Dataset</h3>
+<pre style="color: var(--grey-color); font-size: 22px;">
+                data = load_iris()
+                X = data.data
+</pre>
+<p style="color: var(--grey-color); font-size: 22px;">The Iris dataset contains 150 samples with 4 features:</p>
+<ul style="color: var(--grey-color); font-size: 22px;">
+    <li>Sepal Length</li>
+    <li>Sepal Width</li>
+    <li>Petal Length</li>
+    <li>Petal Width</li>
+</ul>
+
+<h3 style="color: var(--grey-color); font-size: 22px;">3. Standardizing the Data</h3>
+<pre style="color: var(--grey-color); font-size: 22px;">
+                scaler = StandardScaler()
+                X_scaled = scaler.fit_transform(X)
+</pre>
+<p style="color: var(--grey-color); font-size: 22px;">PCA is sensitive to feature scaling, so we normalize the data using:</p>
+<h3 style="text-align: center; color: var(--grey-color); font-size: 22px;">
+    \( X_{\text{Normalized}} = \frac{X - \mu}{\sigma} \)
+</h3>
+
+<h3 style="color: var(--grey-color); font-size: 22px;">4. Applying PCA</h3>
+<pre style="color: var(--grey-color); font-size: 22px;">
+                pca = PCA(n_components=2)
+                X_pca = pca.fit_transform(X_scaled)
+</pre>
+<p style="color: var(--grey-color); font-size: 22px;">This reduces the dataset from 4 dimensions to 2 principal components.</p>
+
+            <svg width="100%" height="10">
+              <line x1="5" y1="5" x2="1350" y2="5" stroke=var(--main-color) stroke-width="4"/>
+            </svg><br><br>
+
+           
+      </section>
+    </div>
+    
+    <footer class="footer">
+      <div class="footer-content">
+        <p>© 2023 developed by <span>A.A.A</span></p>
+        <p>Built with pure <span>HTML</span>, <span>CSS</span> & <span>JS</span></p>
+      </div>
+    </footer>
+    
+    <script src="Js/gsap.min.js"></script>
+    <script src="Js/main.js"></script>
+  </body>
+</html>
