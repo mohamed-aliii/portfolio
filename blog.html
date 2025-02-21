@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="all.min.css" />
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
   </head>
   <body>
     <!-- Header -->
-    <header class="header">
+    <div class="header">
       <div class="logo">
         <h4>
           <span class="curl">{</span><span class="text"></span
@@ -36,76 +38,72 @@
         <li><a href="blog.html" class="active">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-    </header>
+    </div>
 
     <!-- Blog Content -->
-    <main class="content-blog">
-      <h1>Welcome to My Blog</h1>
-      <p>Explore articles and tutorials on Machine Learning, Deep Learning, and Problem Solving!</p>
-
-      <!-- Section: Machine Learning -->
-      <section class="blog-section" id="ml">
-        <h2>Machine Learning</h2>
-        <div class="blog-grid">
-          <!-- Topic 1 -->
-          <div class="blog-card">
-            <img src="ml-topic1.jpg" alt="Introduction to Machine Learning" />
-            <h3>Introduction to Machine Learning</h3>
-            <p>A beginner's guide to understanding machine learning concepts and applications.</p>
-            <a href="ml-topic1.html" class="read-more">Read More</a>
-          </div>
-          <!-- Topic 2 -->
-          <div class="blog-card">
-            <img src="ml-topic2.jpg" alt="Supervised vs. Unsupervised Learning" />
-            <h3>Supervised vs. Unsupervised Learning</h3>
-            <p>An in-depth look at the key differences between supervised and unsupervised learning.</p>
-            <a href="ml-topic2.html" class="read-more">Read More</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Deep Learning -->
-      <section class="blog-section" id="dl">
-        <h2>Deep Learning</h2>
-        <div class="blog-grid">
-          <!-- Topic 1 -->
-          <div class="blog-card">
-            <img src="dl-topic1.jpg" alt="Neural Networks Explained" />
-            <h3>Neural Networks Explained</h3>
-            <p>An overview of how neural networks work and their applications in deep learning.</p>
-            <a href="dl-topic1.html" class="read-more">Read More</a>
-          </div>
-          <!-- Topic 2 -->
-          <div class="blog-card">
-            <img src="dl-topic2.jpg" alt="CNNs for Image Recognition" />
-            <h3>Convolutional Neural Networks</h3>
-            <p>A comprehensive guide to CNNs and their use in image recognition tasks.</p>
-            <a href="dl-topic2.html" class="read-more">Read More</a>
+    <div class="blog-page">
+      <!-- Tab Buttons -->
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="latest">Machine Learning</button>
+        <button class="tab-btn" data-tab="popular">Deep Learning</button>
+        <button class="tab-btn" data-tab="archived">Problem Solving</button>
+      </div>
+    
+      <!-- Tab Content Sections -->
+      <div class="tab-content">
+        <div class="tab-panel" id="latest">
+          <h2>Machine Learning</h2>
+          <div class="blog-container">
+            
+            <div class="blog-card">
+              <img src="principal-component-analysis.png" alt="Blog Post">
+              <div class="blog-content">
+                <h3>Principal Component Analysis (PCA)</h3>
+                <p>Principal Component Analysis (PCA) is an unsupervised statistical dimensionality reduction technique used to transform
+                  a dataset into a lower-dimensional space while preserving as much variance (information) as possible.</p>
+                <a href="PCA.html" class="read-more">Read More</a>
+              </div>
+            </div>
+           
+           
+            
+            <!-- Repeat .blog-card -->
           </div>
         </div>
-      </section>
-
-      <!-- Section: Problem Solving -->
-      <section class="blog-section" id="problem-solving">
-        <h2>Problem Solving</h2>
-        <div class="blog-grid">
-          <!-- Topic 1 -->
-          <div class="blog-card">
-            <img src="problem-solving1.jpg" alt="Algorithm Basics" />
-            <h3>Algorithm Basics</h3>
-            <p>Learn the fundamentals of algorithms and their role in problem solving.</p>
-            <a href="problem-solving1.html" class="read-more">Read More</a>
-          </div>
-          <!-- Topic 2 -->
-          <div class="blog-card">
-            <img src="problem-solving2.jpg" alt="Dynamic Programming" />
-            <h3>Dynamic Programming</h3>
-            <p>An introduction to solving complex problems using dynamic programming techniques.</p>
-            <a href="problem-solving2.html" class="read-more">Read More</a>
+    
+        <div class="tab-panel hidden" id="popular">
+          <h2>Deep Learning</h2>
+          <div class="blog-container">
+            <div class="blog-card">
+              <img src="path-to-image2.jpg" alt="Blog Post">
+              <div class="blog-content">
+                <h3>Post Title 2</h3>
+                <p>A short description or excerpt of the blog post goes here.</p>
+                <a href="#" class="read-more">Read More</a>
+              </div>
+            </div>
+            <!-- Repeat .blog-card -->
           </div>
         </div>
-      </section>
-    </main>
+    
+        <div class="tab-panel hidden" id="archived">
+          <h2>Problem Solving</h2>
+          <div class="blog-container">
+            <div class="blog-card">
+              <img src="path-to-image3.jpg" alt="Blog Post">
+              <div class="blog-content">
+                <h3>Post Title 3</h3>
+                <p>A short description or excerpt of the blog post goes here.</p>
+                <a href="#" class="read-more">Read More</a>
+              </div>
+            </div>
+            <!-- Repeat .blog-card -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
 
     <!-- Footer -->
     <footer class="footer">
@@ -116,8 +114,33 @@
         </p>
       </div>
     </footer>
-
+ 
+    
     <script src="gsap.min.js"></script>
     <script src="main.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", () => {
+      const tabButtons = document.querySelectorAll(".tab-btn"); // Select all buttons
+      const tabPanels = document.querySelectorAll(".tab-panel"); // Select all panels
+    
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Remove 'active' class from all buttons
+          tabButtons.forEach((btn) => btn.classList.remove("active"));
+    
+          // Add 'active' class to the clicked button
+          button.classList.add("active");
+    
+          // Hide all tab panels
+          tabPanels.forEach((panel) => panel.classList.add("hidden"));
+    
+          // Show the corresponding tab panel
+          const targetTab = button.getAttribute("data-tab");
+          document.getElementById(targetTab).classList.remove("hidden");
+        });
+      });
+    });
+    
+    var typed = new Typed(".textt", {strings: ["M.A.G"], typeSpeed: 100, backSpeed: 100, backdelay: 1000, loop: true,});
+    </script>
   </body>
 </html>
