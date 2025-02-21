@@ -5,7 +5,7 @@ let contentContainer = document.querySelector(".content-main");
 let about = document.querySelector(".about");
 let progects = document.querySelector(".content-proj");
 let marketContent = document.querySelector(".content-market");
-let blogContent = document.querySelector(".content-blog");
+let blogContent = document.querySelector(".blog-page");
 let contactContent = document.querySelector(".content-contact");
 
 // scroll effect gsap
@@ -33,6 +33,27 @@ document.addEventListener("DOMContentLoaded", function() {
   gsap.from(".content-contact .toch2 span", 1.5, { opacity: 0, x: -100, delay: 0.9 });
   gsap.from(".content-contact .toch3", 1.5, { opacity: 0, x: -100, delay: 0.9 });
   gsap.from(".content-contact .contacts", 1.5, { opacity: 0, x: -100, delay: 1.2 });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const tabButtons = document.querySelectorAll(".tab-btn"); // Select all buttons
+  const tabPanels = document.querySelectorAll(".tab-panel"); // Select all panels
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Remove 'active' class from all buttons
+      tabButtons.forEach((btn) => btn.classList.remove("active"));
+
+      // Add 'active' class to the clicked button
+      button.classList.add("active");
+
+      // Hide all tab panels
+      tabPanels.forEach((panel) => panel.classList.add("hidden"));
+
+      // Show the corresponding tab panel
+      const targetTab = button.getAttribute("data-tab");
+      document.getElementById(targetTab).classList.remove("hidden");
+    });
+  });
 });
 
 var typed = new Typed(".text", {strings: ["M.A.G"], typeSpeed: 100, backSpeed: 100, backdelay: 1000, loop: true,});
