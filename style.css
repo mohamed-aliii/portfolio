@@ -9,7 +9,7 @@ body {
 }
 :root {
   --main-color: #00ff7f;
-  --grey-color: #888;
+  --grey-color: #b1aeae;
 }
 *:focus {
   outline: none;
@@ -40,7 +40,7 @@ ul {
 }
 @media (max-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1000px;
   }
 }
 @media (max-width: 992px) {
@@ -588,6 +588,7 @@ ul {
 /* end market page */
 
 /* Start blog Page */
+/* Blog Page Styling */
 .blog-page {
   padding: 20px;
 }
@@ -690,6 +691,11 @@ ul {
   background-color: var(--highlight-color);
   color: #ffffff;
 }
+
+
+/* End Blog Page */
+
+
 /* end blog page */
 
 /* Start contact Page */
